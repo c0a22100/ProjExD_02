@@ -1,6 +1,7 @@
+import random
 import sys
 import pygame as pg
-import random
+
 
 
 WIDTH, HEIGHT = 1600, 900
@@ -14,9 +15,13 @@ def main():
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
     clock = pg.time.Clock()
 
-    bomb = pg.Surface((20, 20))
-    pg.draw.circle(bomb, (255, 0, 0), (10, 10), 10)
-    bomb.set_colorkey((0, 0, 0))
+    bd = pg.Surface((20, 20))  # 練習1
+    pg.draw.circle(bd, (255, 0, 0), (10, 10), 10)
+    bd.set_colorkey((0, 0, 0))
+    x = random.randint(0, WIDTH)
+    y = random.randint(0, HEIGHT)
+    bd_rect = bd.get_rect()
+    bd_rect.center = x, y
 
     tmr = 0
     while True:
@@ -27,8 +32,7 @@ def main():
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, [900, 400])
         
-        pos = random.randint(0,500)
-        screen.blit(bomb, [pos, pos])
+        screen.blit(bd, [x, y])
 
         pg.display.update()
         tmr += 1
