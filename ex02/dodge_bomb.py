@@ -33,21 +33,20 @@ def main():
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_imgf = pg.transform.flip(kk_img, True, False)  # kk_imgを左右反転させる
 
-    # 追加課題1
+    # 追加課題1.1
     outimg = {
-        "[0, 0]": pg.transform.rotozoom(kk_img, 0, 1),
-        "[0, -5]": pg.transform.rotozoom(kk_imgf, 90, 1),
-        "[5, -5]": pg.transform.rotozoom(kk_imgf, 45, 1),
-        "[5, 0]": pg.transform.rotozoom(kk_imgf, 0, 1),
-        "[5, 5]": pg.transform.rotozoom(kk_imgf, -45, 1),
-        "[0, 5]": pg.transform.rotozoom(kk_imgf, -90, 1),
-        "[-5, 5]": pg.transform.rotozoom(kk_img, 45, 1),
-        "[-5, 0]": pg.transform.rotozoom(kk_img, 0, 1),
-        "[-5, -5]": pg.transform.rotozoom(kk_img, -45, 1),
+        "[0, 0]": pg.transform.rotozoom(kk_img, 0, 2),
+        "[0, -5]": pg.transform.rotozoom(kk_imgf, 90, 2),
+        "[5, -5]": pg.transform.rotozoom(kk_imgf, 45, 2),
+        "[5, 0]": pg.transform.rotozoom(kk_imgf, 0, 2),
+        "[5, 5]": pg.transform.rotozoom(kk_imgf, -45, 2),
+        "[0, 5]": pg.transform.rotozoom(kk_imgf, -90, 2),
+        "[-5, 5]": pg.transform.rotozoom(kk_img, 45, 2),
+        "[-5, 0]": pg.transform.rotozoom(kk_img, 0, 2),
+        "[-5, -5]": pg.transform.rotozoom(kk_img, -45, 2),
     }
-    
 
-    kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    kk_img = pg.transform.rotozoom(kk_img, 0, 2)
     # こうかとんSurface（kk_img）からこうかとんRect（kk_rct）を抽出する
     kk_rct = kk_img.get_rect()
     kk_rct.center = 900, 400
@@ -70,6 +69,11 @@ def main():
                 return
 
         if kk_rct.colliderect(bd_rct):  # 練習５
+
+            # 追加課題3途中
+            kk_sad = pg.image.load("ex02/fig/8.jpg")
+            screen.blit(kk_sad, kk_rct)
+            
             print("ゲームオーバー")
             return   # ゲームオーバー 
         
@@ -85,7 +89,7 @@ def main():
  
         screen.blit(bg_img, [0, 0])
         
-        #追加機能1
+        #追加機能1.2
         outimg_key = str((sum_mv))  # outimg_keyでsum_mvを文字列に変換する
         screen.blit(outimg[outimg_key], kk_rct)
         # キーがouting_keyである値(rotozoomしたSurface)をScreen.blitの第一引数に入力する
