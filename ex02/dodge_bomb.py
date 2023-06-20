@@ -32,6 +32,19 @@ def main():
     key_lst = {pg.K_UP:(0, -5), pg.K_DOWN:(0, +5), 
                pg.K_LEFT:(-5, 0), pg.K_RIGHT:(+5, 0)}
 
+    def jud(kk_rct):
+        if kk_rct[0] < 0 or kk_rct[0] > WIDTH:
+            return False
+        elif kk_rct[1] > 0 or kk_rct[1] < HEIGHT:
+            return True
+    
+    def jud_bd(bd_rct):
+        if bd_rct[0] < 0 or bd_rct[0] > WIDTH:
+            return False
+        elif bd_rct[1] > 0 or bd_rct[1] < HEIGHT:
+            return True
+
+
     tmr = 0
     while True:
         for event in pg.event.get():
@@ -51,11 +64,20 @@ def main():
         if key_lst[pg.K_DOWN]:
             sum[1] += 5
         kk_rct.move_ip(sum)
-
-        screen.blit(kk_img, kk_rct)
         
-        bd_rct.move_ip(vx, vy)
-        screen.blit(bd, bd_rct)
+        jud_res = jud(kk_rct)
+
+        if jud_res == True:
+            screen.blit(kk_img, kk_rct)
+        elif jud_res == False:
+            kk_bef = kk_rct.get_rect()
+            screen.blit(kk_img, kk_bef)
+
+        jud_bd_res = jud_bd(bd_rct)
+        if jud_bd_res == True:
+            bd_bef = bd_rct.move_ip(vx, vy)
+        elif jud_bd_res == False:
+            bd_bef = bd_rct.move_ip(-vx, -vy)
 
         pg.display.update()
         tmr += 1
