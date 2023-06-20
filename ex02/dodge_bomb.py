@@ -13,6 +13,10 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+
+    kk_rct = kk_img.get_rect()
+    kk_rct.center = 900, 400
+
     clock = pg.time.Clock()
 
     bd = pg.Surface((20, 20))  # 練習1
@@ -24,6 +28,10 @@ def main():
     bd_rct.center = x, y
     vx, vy = +5, +5
 
+    key_lst = dict()
+    key_lst = {pg.K_UP:(0, -5), pg.K_DOWN:(0, +5), 
+               pg.K_LEFT:(-5, 0), pg.K_RIGHT:(+5, 0)}
+
     tmr = 0
     while True:
         for event in pg.event.get():
@@ -31,7 +39,20 @@ def main():
                 return
 
         screen.blit(bg_img, [0, 0])
-        screen.blit(kk_img, [900, 400])
+
+        key_lst = pg.key.get_pressed()
+        sum = [0, 0]
+        if key_lst[pg.K_LEFT]:
+            sum[0] -= 5
+        if key_lst[pg.K_RIGHT]:
+            sum[0] += 5
+        if key_lst[pg.K_UP]:
+            sum[1] -= 5
+        if key_lst[pg.K_DOWN]:
+            sum[1] += 5
+        kk_rct.move_ip(sum)
+
+        screen.blit(kk_img, kk_rct)
         
         bd_rct.move_ip(vx, vy)
         screen.blit(bd, bd_rct)
