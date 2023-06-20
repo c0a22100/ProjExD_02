@@ -20,8 +20,9 @@ def main():
     bd.set_colorkey((0, 0, 0))
     x = random.randint(0, WIDTH)
     y = random.randint(0, HEIGHT)
-    bd_rect = bd.get_rect()
-    bd_rect.center = x, y
+    bd_rct = bd.get_rect()
+    bd_rct.center = x, y
+    vx, vy = +5, +5
 
     tmr = 0
     while True:
@@ -32,11 +33,12 @@ def main():
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, [900, 400])
         
-        screen.blit(bd, [x, y])
+        bd_rct.move_ip(vx, vy)
+        screen.blit(bd, bd_rct)
 
         pg.display.update()
         tmr += 1
-        clock.tick(10)
+        clock.tick(50)
 
 
 if __name__ == "__main__":
