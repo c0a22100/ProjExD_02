@@ -81,7 +81,7 @@ def main():
           
 
             print("ゲームオーバー")
-            return   # ゲームオーバー 
+            return   # ゲーム オーバー 
 
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]  # 合計移動量
