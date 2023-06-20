@@ -1,4 +1,5 @@
 import random
+import time
 import sys
 import pygame as pg
 
@@ -43,7 +44,7 @@ def main():
         "[0, 5]": pg.transform.rotozoom(kk_imgf, -90, 2),
         "[-5, 5]": pg.transform.rotozoom(kk_img, 45, 2),
         "[-5, 0]": pg.transform.rotozoom(kk_img, 0, 2),
-        "[-5, -5]": pg.transform.rotozoom(kk_img, -45, 2),
+        "[-5, -5]": pg.transform.rotozoom(kk_img, -45, 2)
     }
 
     kk_img = pg.transform.rotozoom(kk_img, 0, 2)
@@ -71,12 +72,17 @@ def main():
         if kk_rct.colliderect(bd_rct):  # 練習５
 
             # 追加課題3途中
-            kk_sad = pg.image.load("ex02/fig/8.jpg")
-            screen.blit(kk_sad, kk_rct)
             
+            
+            kk_sad = pg.image.load("ex02/fig/8.png")
+            kk_sad = pg.transform.rotozoom(kk_sad, 0, 2)
+            screen.blit(kk_sad, kk_rct)
+            time.sleep(5)
+          
+
             print("ゲームオーバー")
             return   # ゲームオーバー 
-        
+
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]  # 合計移動量
         for k, mv in delta.items():
@@ -92,6 +98,7 @@ def main():
         #追加機能1.2
         outimg_key = str((sum_mv))  # outimg_keyでsum_mvを文字列に変換する
         screen.blit(outimg[outimg_key], kk_rct)
+        print(kk_rct)
         # キーがouting_keyである値(rotozoomしたSurface)をScreen.blitの第一引数に入力する
 
         
