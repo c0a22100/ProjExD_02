@@ -31,6 +31,22 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
+    kk_imgf = pg.transform.flip(kk_img, True, False)  # kk_imgを左右反転させる
+
+    # 追加課題1
+    outimg = {
+        "[0, 0]": pg.transform.rotozoom(kk_img, 0, 1),
+        "[0, -5]": pg.transform.rotozoom(kk_imgf, 90, 1),
+        "[5, -5]": pg.transform.rotozoom(kk_imgf, 45, 1),
+        "[5, 0]": pg.transform.rotozoom(kk_imgf, 0, 1),
+        "[5, 5]": pg.transform.rotozoom(kk_imgf, -45, 1),
+        "[0, 5]": pg.transform.rotozoom(kk_imgf, -90, 1),
+        "[-5, 5]": pg.transform.rotozoom(kk_img, 45, 1),
+        "[-5, 0]": pg.transform.rotozoom(kk_img, 0, 1),
+        "[-5, -5]": pg.transform.rotozoom(kk_img, -45, 1),
+    }
+    
+
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
     # こうかとんSurface（kk_img）からこうかとんRect（kk_rct）を抽出する
     kk_rct = kk_img.get_rect()
@@ -68,7 +84,13 @@ def main():
             kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
  
         screen.blit(bg_img, [0, 0])
-        screen.blit(kk_img, kk_rct)
+        
+        #追加機能1
+        outimg_key = str((sum_mv))  # outimg_keyでsum_mvを文字列に変換する
+        screen.blit(outimg[outimg_key], kk_rct)
+        # キーがouting_keyである値(rotozoomしたSurface)をScreen.blitの第一引数に入力する
+
+        
         bd_rct.move_ip(vx, vy)  # 練習２
         yoko, tate = check_bound(bd_rct)
         if not yoko:  # 横方向に画面外だったら
